@@ -27,7 +27,10 @@ router.get('/api/:gregDate', (req, res , next) => {
     const url = `https://www.hebcal.com/converter?cfg=json&gy=${model.year.toString()}&gm=${model.month.toString()}&gd=${model.day.toString()}&g2h=1`;
     axios.get(url).then(
         (response) => {
-        res.send("{ "+"hebrew: " + response.data.hebrew +" }");
+            //res.send("{ " + "hebrew: " + response.data.hebrew + " }");
+            res.json({
+                date:response.data.hebrew
+            })
     },
         (error) => {
             console.log('error:', error);
