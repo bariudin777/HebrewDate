@@ -27,13 +27,27 @@ router.get('/api/:gregDate', (req, res , next) => {
     const url = `https://www.hebcal.com/converter?cfg=json&gy=${model.year.toString()}&gm=${model.month.toString()}&gd=${model.day.toString()}&g2h=1`;
     axios.get(url).then(
         (response) => {
-            //res.send("{ " + "hebrew: " + response.data.hebrew + " }");
             res.json({
                 hebrew:response.data.hebrew
             })
     },
         (error) => {
             console.log('error:', error);
+    });
+});
+
+/*
+I added default routes just in case
+*/
+
+router.get('/api', (req, res, next) => {
+    res.status(200).json({
+        message: " Please Enter current url: https://dateconverterbariudin.herokuapp.com/api/{here you enter the date} "
+    });
+});
+router.get('/', (req, res, next) => {
+    res.status(200).json({
+        message: "Please Enter current url: https://dateconverterbariudin.herokuapp.com/api/{here you enter the date} "
     });
 });
 module.exports = router;
