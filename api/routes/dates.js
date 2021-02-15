@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-var request = require('request');
+const axios = require('axios');
 
-class HebDate{
+class HebrewDateConverter{
 
     constructor(date) {
         this.date = date;
@@ -12,26 +12,25 @@ class HebDate{
     }
 
     convertDate() {
-        var date_list = [String(this.date).split('-')];
+        const date_list = [String(this.date).split('-')];
         this.day = date_list[0][0];
         this.month = date_list[0][1];
         this.year = date_list[0][2];
 
     }
+
 }
 
-router.get('/:gregDates', (req, res , next) => {
-    var model = new HebDate(req.params.gregDates);
+router.get('/api/:gregDate', (req, res , next) => {
+    const model = new HebrewDateConverter(req.params.gregDate);
     model.convertDate();
-    request("https://www.hebcal.com/converter?cfg=json&gy=" + model.year.toString() + "&gm=" + model.month.toString() +
-        "&gd="+model.day.toString() + "&g2h=1" ,function (error, response, body) {
-        console.log('error:', error); // Print the error if one occurred and handle it
-        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
-        // var str = JSON.parse(response.body);
-        // res.send('hebrew: '+str["hebrew"]);
-            var str = JSON.parse(response.body);
-            res.send(JSON.stringify("{ "+"hebrew: " + str["hebrew"]+" }"));
+    const url = `https://www.hebcal.com/converter?cfg=json&gy=${model.year.toString()}&gm=${model.month.toString()}&gd=${model.day.toString()}&g2h=1`;
+    axios.get(url).then(
+        (response) => {
+        res.send("{ "+"hebrew: " + response.data.hebrew +" }");
+    },
+        (error) => {
+            console.log('error:', error);
     });
-
 });
 module.exports = router;
