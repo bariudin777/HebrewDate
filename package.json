@@ -1,0 +1,14 @@
+{
+  "name": "gregdate",
+  "version": "1.0.0",
+  "description": "A Restfull API app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Bariudin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
