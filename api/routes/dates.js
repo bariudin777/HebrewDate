@@ -29,7 +29,7 @@ router.get('/api/:gregDate', (req, res , next) => {
         (response) => {
             //res.send("{ " + "hebrew: " + response.data.hebrew + " }");
             res.json({
-                date:response.data.hebrew
+                hebrew:response.data.hebrew
             })
     },
         (error) => {
