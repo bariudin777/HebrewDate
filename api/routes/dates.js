@@ -13,7 +13,7 @@ class HebrewDateConverter{
     }
 
     convertDate() {
-        const date_list = [String(this.date).split('-')];
+        const date_list = [String(this.date).split('/')];
         this.day = date_list[0][0];
         this.month = date_list[0][1];
         this.year = date_list[0][2];
@@ -22,8 +22,8 @@ class HebrewDateConverter{
 
 }
 
-router.get('/api/:gregDate', (req, res, next) => {
-    const model = new HebrewDateConverter(req.params.gregDate);
+router.get('/api', (req, res, next) => {
+    const model = new HebrewDateConverter(req.query.gregDate);
     model.convertDate();
     const url = `https://www.hebcal.com/converter?cfg=json&gy=${model.year.toString()}&gm=${model.month.toString()}&gd=${model.day.toString()}&g2h=1`;
     axios.get(url).then(
@@ -41,11 +41,6 @@ router.get('/api/:gregDate', (req, res, next) => {
 I added default routes just in case
 */
 
-router.get('/api', (req, res, next) => {
-    res.status(200).json({
-        message: " Please Enter correct url: https://dateconverterbariudin.herokuapp.com/api/{here you enter the date} "
-    });
-});
 router.get('/', (req, res, next) => {
     res.status(200).json({
         message: "Please Enter correct url: https://dateconverterbariudin.herokuapp.com/api/{here you enter the date} "
