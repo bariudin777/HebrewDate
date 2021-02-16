@@ -48,7 +48,7 @@ router.get('/api', (req, res, next) => {
 });
 router.get('/', (req, res, next) => {
     res.status(200).json({
-        message: "Please Enter current url: https://dateconverterbariudin.herokuapp.com/api/{here you enter the date} "
+        message: "Please Enter correct url: https://dateconverterbariudin.herokuapp.com/api/{here you enter the date} "
     });
 });
 module.exports = router;
