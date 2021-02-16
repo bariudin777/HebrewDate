@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
+
 class HebrewDateConverter{
 
     constructor(date) {
@@ -21,7 +22,7 @@ class HebrewDateConverter{
 
 }
 
-router.get('/api/:gregDate', (req, res , next) => {
+router.get('/api/:gregDate', (req, res, next) => {
     const model = new HebrewDateConverter(req.params.gregDate);
     model.convertDate();
     const url = `https://www.hebcal.com/converter?cfg=json&gy=${model.year.toString()}&gm=${model.month.toString()}&gd=${model.day.toString()}&g2h=1`;
@@ -42,7 +43,7 @@ I added default routes just in case
 
 router.get('/api', (req, res, next) => {
     res.status(200).json({
-        message: " Please Enter current url: https://dateconverterbariudin.herokuapp.com/api/{here you enter the date} "
+        message: " Please Enter correct url: https://dateconverterbariudin.herokuapp.com/api/{here you enter the date} "
     });
 });
 router.get('/', (req, res, next) => {
